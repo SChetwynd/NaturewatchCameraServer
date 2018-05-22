@@ -112,6 +112,10 @@ class ChangeDetector(Thread):
             saving_thread.start()
             self.numOfPhotos = self.numOfPhotos + 1
             self.lastPhotoTime = time.time()
+            timestamp = datetime.datetime.now()
+            filename = timestamp.strftime('%Y-%m-%d-%H-%M-%S')
+            filename = filename + "-frame_delta.jpg"
+            cv2.imwrite(filename, frame_delta)
 
         cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
         cv2.putText(img, "%d" % self.numOfPhotos, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
