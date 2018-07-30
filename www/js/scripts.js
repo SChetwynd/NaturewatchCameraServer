@@ -34,6 +34,7 @@ $(document).ready(function() {
     $("#delete-confirm").hide();
     $("#delete-confirm2").hide();
     $("#camera-controls").hide();
+    $("#whitebalance-controls").hide()
 
     getCameraStatus();
     sendTime(getDateString());
@@ -176,6 +177,20 @@ $(document).ready(function() {
             $("#mode-auto").removeClass("active");
             $("#mode-manual").addClass("active");
         }
+        
+        else if (dataDest == "whitebalance") {
+            $("#whitebalance-controls").slideDown(100);
+        }
+        
+        else if (dataDest == "wb-auto") {
+            $.ajax({
+                url: baseURL + "wb-auto",
+                error: function() {
+                    console.log("Failed to adjust white balance.");
+                },
+                success: function() {
+                    $("#
+        
         else sendGetRequest(dataDest);
     });
 
