@@ -31,13 +31,30 @@
                         <button type="button" id="flip-default" class="btn btn-secondary" data-dest="flip-default">Default</button>
                         <button type="button" id="flip-180" class="btn btn-secondary" data-dest="flip-180">Flip 180</button>
                     </div>
-
                     <label for="framerate-range" class="bg-secondary top-margin">Framerate: <span></span></label>
                     <div class="bg-tertiary">
                         <input type="range" class="form-control-range" id="framerate-range" min="1" max="24" step="1">
                     </div>
-                    <button type="button" class="btn btn-secondary" data-dest="update-framerate">Update Framerate Settings</button>
-                    
+                    <button type="button" class="btn btn-secondary" data-dest="update-framerate">Update Framerate Settings</button>          
+                    <button type="button" class="btn btn-secondary" data-dest="whitebalance">White Balance</button>
+                    <div class="btn-group" id="whitebalance-controls">
+                        <div>
+                            <button type="button" id="wb-auto" class="btn btn-secondary no-top-margin" data-dest="wb-auto">Auto</button>
+                            <button type="button" id="wb-sunlight" class="btn btn-secondary no-top-margin" data-dest="wb-sunlight">Sunlight</button>
+                            <button type="button" id="wb-cloudy" class="btn btn-secondary no-top-margin" data-dest="wb-cloudy">Cloudy</button>
+                        </div>
+                        
+                        <div>
+                            <button type="button" id="wb-shade" class="btn btn-secondary no-top-margin" data-dest="wb-shade">Shade</button>
+                            <button type="button" id="wb-tungston" class="btn btn-secondary no-top-margin" data-dest="wb-tungsten">tungsten</button>
+                            <button type="button" id="wb-flourescent" class="btn btn-secondary no-top-margin" data-dest="wb-flourescent">Flourescent</button>
+                        </div>
+                        <div>
+                            <button type="button" id="wb-incandescent" class="btn btn-secondary no-top-margin" data-dest="wb-incandescent">Incandescent</button>    
+                            <button type="button" id="wb-flash" class="btn btn-secondary no-top-margin" data-dest="wb-flash">Flash</button>
+                            <button type="button" id="wb-horizon" class="btn btn-secondary no-top-margin" data-dest="wb-horizon">Horizon</button>
+                        </div>
+                    </div>
                     <button type="button" class="btn btn-secondary" data-dest="controls">Exposure Mode</button>
                     <div id="camera-controls">
                         <div class="btn-group" id="mode-controls">

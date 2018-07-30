@@ -18,4 +18,5 @@
     "iso": 800,
     "shutter_speed": 8000,
     "framerate": 24
+    "white_balance": "auto",
 }

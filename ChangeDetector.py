@@ -33,6 +33,7 @@ class ChangeDetector(Thread):
         self.minHeight = self.config["min_height"]
         self.maxHeight = self.config["max_height"]
         self.framerate = self.config["framerate"]
+        self.whiteBalance = self.config["white_balance"]
 
         self.mode = 0
         self.avg = None
@@ -53,6 +54,9 @@ class ChangeDetector(Thread):
         PiCamera.CAPTURE_TIMEOUT = 60
         self.camera.framerate = self.config["framerate"]
 
+        #setting white balance
+        self.camera.awb_mode = self.config["white_balance"]
+
         self.camera.resolution = (self.safe_width(self.config["img_width"]), self.safe_height(self.config["img_height"]))
 
         if self.config["fix_camera_settings"] is 1:
@@ -60,9 +64,6 @@ class ChangeDetector(Thread):
             time.sleep(0.2)
             self.camera.shutter_speed = self.config["shutter_speed"]
             self.camera.exposure_mode = 'off'
-            g = self.camera.awb_gains
-            self.camera.awb_mode = 'off'
-            self.camera.awb_gains = g
 
         self.hiResCapture = PiRGBArray(self.camera)
         self.lowResCapture = PiRGBArray(self.camera, size=(self.safe_width(self.config["cv_width"]),
@@ -229,12 +230,22 @@ class ChangeDetector(Thread):
         self.camera.iso = 0
         self.camera.shutter_speed = 0
         self.camera.exposure_mode = 'auto'
-        self.camera.awb_mode = 'auto'
 
         self.config["fix_camera_settings"] = 0
         
         logging.info("Shutter Speed set to: auto")
         
+        return self.config
+        
+    # function to change the white balance takes a white balance which is
+    # accepted by the picamera module
+    def white_balance(self, inWhiteBalance):
+        self.whiteBalance = inWhiteBalance
+        self.camera.awb_mode = inWhiteBalance
+        
+        logging.info("White Balance set to {}.".format(inWhiteBalance))
+        
+        self.config["white_balance"] = inWhiteBalance
         return self.config
 
     def fix_exposure(self, shutter_speed):
@@ -242,9 +253,6 @@ class ChangeDetector(Thread):
         time.sleep(0.5)
         self.camera.shutter_speed = shutter_speed
         self.camera.exposure_mode = 'off'
-        g = self.camera.awb_gains
-        self.camera.awb_mode = 'off'
-        self.camera.awb_gains = g
 
         self.config["shutter_speed"] = shutter_speed
         self.config["fix_camera_settings"] = 1

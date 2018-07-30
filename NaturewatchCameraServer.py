@@ -209,6 +209,23 @@ class CamHandler(BaseHTTPRequestHandler):
             self.update_config(new_config)
             print("Set exposure settings to auto.")
             return
+            
+        # Altering the white balance one elif serves all settings
+        # All paths starting with \wb- refer to white balance
+        elif self.path.startswith('\wb-'):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write(b'success')
+            # sending the new white balance setting to the chenge detector
+            # striping the '\wb-' from the path results in a white balance
+            # setting accepted by the picamera module
+            new_config = changeDetectorInstance.white_balance(self.path[3:])
+            self.update_config(new_config)
+            # stripping the 'wb-' before printing the new setting this is
+            # for human readability
+            print("Set white balance to {}.".format(self.path[3:]))
+            return
 
         # 404 page
         else:
