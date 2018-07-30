@@ -35,6 +35,8 @@ $(document).ready(function() {
     $("#delete-confirm2").hide();
     $("#camera-controls").hide();
     $("#whitebalance-controls").hide()
+    
+    var activeWhiteBalance = undefined;
 
     getCameraStatus();
     sendTime(getDateString());
@@ -182,14 +184,27 @@ $(document).ready(function() {
             $("#whitebalance-controls").slideDown(100);
         }
         
-        else if (dataDest == "wb-auto") {
+        // quick and easy function using concatination to alter the
+        // white balance settings
+        else if (dataDest.startsWith("wb-")) {
             $.ajax({
-                url: baseURL + "wb-auto",
+                url: baseURL + dataDest,
                 error: function() {
                     console.log("Failed to adjust white balance.");
                 },
                 success: function() {
-                    $("#
+                    // uses concatination to form the jquery selector
+                    // and alter the element
+                    $("#" + dataDest).addClass("active");
+                    activeWhiteBalance.removeClass("active");
+                    // changing the active white balance variable for
+                    // the next time it is changed
+                    activeWhiteBalance = $("#" + dataDest);
+                },
+                timeout: 1000
+            });
+        }
+                    
         
         else sendGetRequest(dataDest);
     });
@@ -235,6 +250,14 @@ function getCameraStatus() {
             $("#flip-default").addClass("active");
             $("#flip-180").removeClass("active");
         }
+        
+        // Setting the white balance button up, concatinating strings to
+        // form the selector to save on a big if else block
+        $("#" + data.white_balance).addClass("active"); 
+        // putting the active white balance setting into a variable to 
+        // be referenced later on this will save a big if else block later
+        activeWhiteBalance = $("#" + data.white_balance);
+            
 
         // Manual / Auto settings
         if (!data.fix_camera_settings) {
