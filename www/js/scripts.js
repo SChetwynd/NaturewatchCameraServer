@@ -25,6 +25,8 @@ var cameraShutterSpeeds = {
     "1/4000": 250
 };
 
+var activeWhiteBalance;
+
 $(document).ready(function() {
 
     // Hide controls
@@ -35,8 +37,6 @@ $(document).ready(function() {
     $("#delete-confirm2").hide();
     $("#camera-controls").hide();
     $("#whitebalance-controls").hide()
-    
-    var activeWhiteBalance = undefined;
 
     getCameraStatus();
     sendTime(getDateString());
@@ -253,10 +253,10 @@ function getCameraStatus() {
         
         // Setting the white balance button up, concatinating strings to
         // form the selector to save on a big if else block
-        $("#" + data.white_balance).addClass("active"); 
+        $("#wb-" + data.white_balance).addClass("active"); 
         // putting the active white balance setting into a variable to 
         // be referenced later on this will save a big if else block later
-        activeWhiteBalance = $("#" + data.white_balance);
+        activeWhiteBalance = $("#wb-" + data.white_balance);
             
 
         // Manual / Auto settings
