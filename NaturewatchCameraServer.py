@@ -181,7 +181,8 @@ class CamHandler(BaseHTTPRequestHandler):
                 "iso": config["iso"],
                 "shutter_speed": config["shutter_speed"],
                 "rotate_camera": config["rotate_camera"],
-                "framerate": config["framerate"]
+                "framerate": config["framerate"],
+                "white_balance" : config["white_balance"]
             }
             json_data = json.dumps(send_data)
             self.wfile.write(json_data.encode("utf-8"))
@@ -212,7 +213,7 @@ class CamHandler(BaseHTTPRequestHandler):
             
         # Altering the white balance one elif serves all settings
         # All paths starting with \wb- refer to white balance
-        elif self.path.startswith('\wb-'):
+        elif self.path.startswith('/wb-'):
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
@@ -220,11 +221,11 @@ class CamHandler(BaseHTTPRequestHandler):
             # sending the new white balance setting to the chenge detector
             # striping the '\wb-' from the path results in a white balance
             # setting accepted by the picamera module
-            new_config = changeDetectorInstance.white_balance(self.path[3:])
+            new_config = changeDetectorInstance.white_balance(self.path[4:])
             self.update_config(new_config)
             # stripping the 'wb-' before printing the new setting this is
             # for human readability
-            print("Set white balance to {}.".format(self.path[3:]))
+            print("Set white balance to {}.".format(self.path[4:]))
             return
 
         # 404 page
