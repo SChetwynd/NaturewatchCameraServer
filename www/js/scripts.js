@@ -46,8 +46,14 @@ $(document).ready(function() {
         var dataDest = $(this).data('dest');
         var thisButton = $(this);
         console.log(dataDest);
+        
         if (dataDest == "sensitivity") {
-            $("#sensitivity-controls").slideDown(100);
+            if ($("#sensitivity-controls").is(":visible")) {
+                $("#sensitivity-controls").slideUp(100)
+            }
+            else {
+                $("#sensitivity-controls").slideDown(100);
+            }
         }
         else if (dataDest == "less" || dataDest == "more" || dataDest == "default") {
             $.ajax({
@@ -118,13 +124,28 @@ $(document).ready(function() {
             });
         }
         else if (dataDest == "settings") {
-            $("#settings-controls").slideDown(100);
+            if ($("#settings-controls").is(":visible")) {
+                $("#settings-controls").slideUp(100)
+            }
+            else {
+                $("#settings-controls").slideDown(100);
+            }
         }
         else if (dataDest == "flip") {
-            $("#flip-controls").slideDown(100);
+            if ($("#flip-controls").is(":visible")) {
+                $("#flip-controls").slideUp(100)
+            }
+            else {
+                $("#flip-controls").slideDown(100);
+            }
         }
         else if (dataDest == "controls") {
-            $("#camera-controls").slideDown(100);
+            if ($("#camera-controls").is(":visible")) {
+                $("#camera-controls").slideUp(100)
+            }
+            else {
+                $("#camera-controls").slideDown(100);
+            }
         }
         else if (dataDest == "flip-default") {
             $.ajax({
@@ -183,7 +204,12 @@ $(document).ready(function() {
         }
         
         else if (dataDest == "whitebalance") {
-            $("#whitebalance-controls").slideDown(100);
+            if ($("#whitebalance-controls").is(":visible")) {
+                $("#whitebalance-controls").slideUp(100)
+            }
+            else {
+                $("#whitebalance-controls").slideDown(100);
+            }
         }
         
         // quick and easy function using concatination to alter the
